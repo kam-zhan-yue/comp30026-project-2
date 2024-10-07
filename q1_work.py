@@ -1,4 +1,16 @@
 from automata.fa.dfa import DFA
+from automata.regex.regex import validate, issubset
+
+inputs = {
+    '0000100': True,
+    '00100100001000111': True,
+    '11001111001': True,
+    '000': False,
+    '1100001': False,
+    '00001': False,
+    '110000': False,
+    '0101010101': False,
+}
 
 def q1a() -> DFA:
     return DFA(
@@ -17,5 +29,16 @@ def q1a() -> DFA:
         final_states={'q5', 'q6'}
     )
 
+# Q1 Testing
+q1a = q1a()
+q1a.show_diagram().draw('q1a.png')
+for test in inputs:
+    assert(q1a.accepts_input(test) == inputs[test])
+
 def q1b() -> str:
     return "(1*0*)*(00)+1+(1*0*)*(00)+(1*0*)*"
+
+# Q2 Testing
+assert(validate(q1b()) == None)
+for test in inputs:
+    assert(issubset(test, q1b()) == inputs[test])
