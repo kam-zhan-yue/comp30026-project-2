@@ -5,10 +5,10 @@ from automata.regex.regex import issubset
 def q2a() -> str:
     return '0'
 
+# Hardcoded regex of the injection
 q2a_regex = "(00)*(11)*(00)*"
 
-# NFA which matches strings beginning with "a", ending with "a", and
-# containing no consecutive "b"s
+# Test out the NFA provided in the assignment
 nfa = NFA(
     states={'q0', 'q1', 'q2', 'q3', 'q4', 'q5'},
     input_symbols={'0', '1'},
@@ -24,6 +24,7 @@ nfa = NFA(
     final_states={"q0"},
 )
 
+# Testing for sanity
 nfa.show_diagram().draw('q2a.png')
 assert(nfa.accepts_input(q2a()))
 assert(issubset(q2a(), q2a_regex) == False)
@@ -74,7 +75,7 @@ def q2b(a: DFA, b: DFA) -> NFA:
 
     print("States", states)
     print("Inputs", inputs)
-    
+
     return NFA(
         states=states,
         input_symbols=inputs,
