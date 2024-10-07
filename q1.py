@@ -2,7 +2,7 @@ from automata.fa.dfa import DFA
 
 def q1a() -> DFA:
     return DFA(
-        states={'q0', 'q1', 'q2', 'q3', 'q4', 'q5'},
+        states={'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6'},
         input_symbols={'0', '1'},
         transitions={
             'q0': {'0': 'q1', '1': 'q0'},
@@ -10,10 +10,11 @@ def q1a() -> DFA:
             'q2': {'0': 'q1', '1': 'q3'},
             'q3': {'0': 'q4', '1': 'q3'},
             'q4': {'0': 'q5', '1': 'q3'},
-            'q5': {'0': 'q4', '1': 'q5'},
+            'q5': {'0': 'q4', '1': 'q6'},
+            'q6': {'0': 'q6', '1': 'q6'},
         },
         initial_state='q0',
-        final_states={'q5'}
+        final_states={'q5', 'q6'}
     )
 
 q1a = q1a()
@@ -21,3 +22,4 @@ q1a.show_diagram().draw('q1a.png')
 print(q1a.accepts_input('0000100'))
 print(q1a.accepts_input('000'))
 print(q1a.accepts_input('00100100001000111'))
+print(q1a.accepts_input('11001111001'))
