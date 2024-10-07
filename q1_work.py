@@ -30,10 +30,10 @@ def q1a() -> DFA:
     )
 
 # Q1 Testing
-q1a = q1a()
-q1a.show_diagram().draw('q1a.png')
+dfa = q1a()
+dfa.show_diagram().draw('q1a.png')
 for test in inputs:
-    assert(q1a.accepts_input(test) == inputs[test])
+    assert(dfa.accepts_input(test) == inputs[test])
 
 def q1b() -> str:
     return "(1*0*)*(00)+1+(1*0*)*(00)+(1*0*)*"
