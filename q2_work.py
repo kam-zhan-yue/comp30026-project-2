@@ -29,40 +29,8 @@ nfa.show_diagram().draw('q2a.png')
 assert(nfa.accepts_input(q2a()))
 assert(issubset(q2a(), q2a_regex) == False)
 
-
-dfa1 = DFA(
-    states={'q0', 'q1', 'q2'},
-    input_symbols={'0', '1'},
-    transitions={
-        'q0': {'0': 'q1', '1': 'q2'},
-        'q1': {'0': 'q0', '1': 'q2'},
-        'q2': {'0': 'q2', '1': 'q2'},
-    },
-    initial_state='q0',
-    final_states={'q0'}
-)
-
-dfa2 = DFA(
-    states={'q3', 'q4', 'q5'},
-    input_symbols={'0', '1'},
-    transitions={
-        'q3': {'0': 'q5', '1': 'q4'},
-        'q4': {'0': 'q5', '1': 'q3'},
-        'q5': {'0': 'q5', '1': 'q5'},
-    },
-    initial_state='q3',
-    final_states={'q3'}
-)
-
 # dfa1.show_diagram().draw('q2a_dfa1.png')
 # dfa1.show_diagram().draw('q2a_dfa2.png')
-
-inputs = {
-    '001100': True,
-    '0011110000': True,
-    '0': False,
-    '01': False,
-}
 
 class NFAWrapper:
     def __init__(self, initial_state: str, final_states: set[str]):
@@ -156,8 +124,42 @@ def q2b(a: DFA, b: DFA) -> NFA:
     
     return nfa_wrapper.get_nfa()
 
+dfa1 = DFA(
+    states={'q0', 'q1', 'q2'},
+    input_symbols={'0', '1'},
+    transitions={
+        'q0': {'0': 'q1', '1': 'q2'},
+        'q1': {'0': 'q0', '1': 'q2'},
+        'q2': {'0': 'q2', '1': 'q2'},
+    },
+    initial_state='q0',
+    final_states={'q0'}
+)
+
+dfa2 = DFA(
+    states={'q3', 'q4', 'q5'},
+    input_symbols={'0', '1'},
+    transitions={
+        'q3': {'0': 'q5', '1': 'q4'},
+        'q4': {'0': 'q5', '1': 'q3'},
+        'q5': {'0': 'q5', '1': 'q5'},
+    },
+    initial_state='q3',
+    final_states={'q3'}
+)
+
+inputs = {
+    '001100': True,
+    '0011110000': True,
+    '0': False,
+    '01': False,
+    '0001100': False,
+}
 
 nfa = q2b(dfa1, dfa2)
 
 # Testing for sanity
 nfa.show_diagram().draw('q2b.png')
+
+for test in inputs:
+    assert(nfa.accepts_input(test) == inputs[test])
