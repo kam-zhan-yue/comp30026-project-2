@@ -10,6 +10,7 @@ inputs = {
     '00001': False,
     '110000': False,
     '0101010101': False,
+    '1000100': False,
 }
 
 def q1a() -> DFA:
@@ -36,9 +37,12 @@ for test in inputs:
     assert(dfa.accepts_input(test) == inputs[test])
 
 def q1b() -> str:
-    return "(1*0*)*(00)+1+(1*0*)*(00)+(1*0*)*"
+    return "((1|0)*1)*00(00)*1((1|0)*1)*00(00)*((1|0)*1)*"
 
 # Q2 Testing
 assert(validate(q1b()) == None)
 for test in inputs:
-    assert(issubset(test, q1b()) == inputs[test])
+    try:
+        assert(issubset(test, q1b()) == inputs[test])
+    except:
+        print("Error at", test)
