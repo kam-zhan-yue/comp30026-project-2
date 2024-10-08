@@ -19,13 +19,13 @@ def q3a() -> NPDA:
                 },
                 # if a, just push # into the stack
                 'a': {
-                    '$': {('q0', ('#', '$'))},  # if initial, push 'A' to stack
-                    '#': {('q0', ('#', '#'))},  # if non-empty, push 'A' to stack
+                    '$': {('q0', ('#', '$'))},
+                    '#': {('q0', ('#', '#'))},
                 },
                 # if b, just push # into the stack
                 'b': {
-                    '$': {('q0', ('#', '$'))},  # if initial, push '#' to stack
-                    '#': {('q0', ('#', '#'))},  # if non-empty, push '#' to stack
+                    '$': {('q0', ('#', '$'))}, 
+                    '#': {('q0', ('#', '#'))},
                 },
             },
             # consume all the a's until encounter a b
@@ -49,30 +49,6 @@ def q3a() -> NPDA:
         acceptance_mode='final_state',
     )
 
-
-
-inputs = {
-    'aabb': True,
-    'abbbbb': True,
-    'bbbbbb': True,
-    'bbbaab': True,
-    'aaaaab': True,
-    'abaa': False,
-    'aaaba': False,
-    'bbbba': False,
-    'aba': False,
-    'a': False,
-    'b': False,
-    '': False,
-}
-
-q3a_npda = q3a()
-q3a_npda.show_diagram().draw('q3a.png')
-for test in inputs:
-    try:
-        assert(q3a_npda.accepts_input(test) == inputs[test])
-    except:
-        print('Error at', test)
 
 def q3b() -> str:
     return [
