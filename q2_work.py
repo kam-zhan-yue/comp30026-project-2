@@ -64,24 +64,58 @@ inputs = {
     '01': False,
 }
 
+def suffix_item(thing, suffix):
+    return f'{thing}_{suffix}'
+
+def suffix_list(original, suffix):
+    return [suffix_item(thing, suffix) for thing in original]
+
+def suffix_transitions(original, suffix):
+    new_transitions = {}
+    for state, transitions in original.items():
+        suffixed = suffix_item(state, suffix)
+        new_transitions[suffixed] = {}
+        for i, t in transitions.items():
+            new_transitions[suffixed][i] = suffix_item(t, suffix)
+    return new_transitions
+
+def add_transitions(nfa_transitions, dfa_transitions):
+    for state, transition in dfa_transitions.items():
+        for i, t in transition.items():
+            # check if the nfa transition dictionary is empty
+            if state not in nfa_transitions:
+                nfa_transitions[state] = {}
+            
+            # add the new transition into the nfa transition dictionary
+            if i in nfa_transitions[state]:
+                nfa_transitions[state][i].add(t)
+            else:
+                nfa_transitions[state][i] = {t}
+
 def q2b(a: DFA, b: DFA) -> NFA:
     states = set(a.states)
     other_states = set(b.states)
     states.update(other_states)
 
-    inputs = set(a.input_symbols)
-    other_inputs = set(b.input_symbols)
-    inputs.update(other_inputs)
+    # for every state in 
+    # first clone a into a2
+    # need to combine the input symbols, make sure they are updated
+    a2_states = suffix_list(a.states, 2)
+    a2_transitions = suffix_transitions(a.transitions, 2)
 
-    print("States", states)
-    print("Inputs", inputs)
+    suffix = 0
+    nfa_transitions = {}
+    add_transitions(nfa_transitions, a.transitions)
+    add_transitions(nfa_transitions, a2_transitions)
 
-    return NFA(
-        states=states,
-        input_symbols=inputs,
-        transitions={
 
-        }
-    )
+
+    for state, transitions in a.transitions.items():
+        branch = suffix_transitions(b.transitions, suffix)
+
+        print(state)
+
+    print(nfa_transitions)
+    return None
 
 q2b(dfa1, dfa2)
